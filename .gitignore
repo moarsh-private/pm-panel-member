@@ -1,0 +1,6 @@
+venv/
+data/
+phones/
+.vscode/
+tmp/
+*.session
