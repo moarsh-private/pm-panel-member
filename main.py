@@ -145,6 +145,7 @@ async def handle_conv1(e):
         await cclient.connect()
         try:
             res = await cclient.send_code_request(phone)
+            print(res)
         except errors.rpcerrorlist.FloodWaitError as ex:
             await e.reply(f" شماره مورد نظر موقتا دچار فلود شده است و تا {ex.seconds} ثانیه دیگر امکان ارسال کد ندارد")
             return 
