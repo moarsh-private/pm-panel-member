@@ -128,10 +128,10 @@ async def handle_conv1(e):
         phone = await conv.get_response()
         phone = phone.text
         phone = phone.replace(" ","").replace("(","").replace(")","")
-        if "بازگشت به منوی اصلی" in phone :
+        if "بازگشت " in phone :
             conv.cancel()
             return
-        if not phone.replace("+","").isnumeric():
+        elif not phone.replace("+","").isnumeric():
             await e.reply("شماره معتبر نیست")
             return
         try:
@@ -152,7 +152,7 @@ async def handle_conv1(e):
         for attempt in [1,2,3]:
             code = await conv.get_response()
             code = code.text
-            if "بازگشت به منوی اصلی" in code :
+            if "بازگشت" in code :
                 conv.cancel()
                 return
             try:
