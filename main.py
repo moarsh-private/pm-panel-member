@@ -127,12 +127,12 @@ async def handle_conv1(e):
         await conv.send_message('Phone Number?',buttons=client.build_reply_markup(Button.text("بازگشت به منوی اصلی")))
         phone = await conv.get_response()
         phone = phone.text
-        phone = phone.replace(" ","").replace("(","").replace(")","")
         print(f"{phone=}")
-        if "بازگشت " in phone :
+        if "بازگشت" in phone :
             conv.cancel()
             return
-        elif not phone.replace("+","").isnumeric():
+        phone = phone.replace(" ","").replace("(","").replace(")","")
+        if not phone.replace("+","").isnumeric():
             await e.reply("شماره معتبر نیست")
             return
         try:
