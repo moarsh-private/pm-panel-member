@@ -128,9 +128,8 @@ async def handle_conv1(e):
         phone = await conv.get_response()
         phone = phone.text
         phone = phone.replace(" ","").replace("(","").replace(")","")
-        if "بازگشت" in phone or "اهدا" in phone:
+        if "بازگشت به منوی اصلی" in phone :
             conv.cancel()
-            #await handle_conv1(e)
             return
         if not phone.replace("+","").isnumeric():
             await e.reply("شماره معتبر نیست")
@@ -153,6 +152,9 @@ async def handle_conv1(e):
         for attempt in [1,2,3]:
             code = await conv.get_response()
             code = code.text
+            if "بازگشت به منوی اصلی" in code :
+                conv.cancel()
+                return
             try:
                 #print(f"{code=}")
                 logged = await cclient.sign_in(phone,code)
@@ -175,6 +177,9 @@ async def handle_conv1(e):
             for attempt in [1,2,3]:
                 f2a = await conv.get_response()
                 f2a = f2a.text
+                if "بازگشت به منوی اصلی" in f2a :
+                    conv.cancel()
+                    return
                 try:
                     #print(f"{f2a=}")
                     logged = await cclient.sign_in(phone=phone,password=f2a)
@@ -211,7 +216,7 @@ async def handle_conv1(e):
             u.donated = int(udonated)+1
             u.save()
             newphone.save()
-            await conv.send_message(f"با موفقیت به نام {logged.first_name} {logged.last_name or ''} وارد شد\nامتیاز شما : {int(u.donated)+1}")
+            await conv.send_message(f"با موفقیت به نام {logged.first_name} {logged.last_name or ''} وارد شد\nامتیاز شما : {int(u.donated)}")
         if cclient:await cclient.disconnect()
 
 
