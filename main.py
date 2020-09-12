@@ -128,6 +128,7 @@ async def handle_conv1(e):
         phone = await conv.get_response()
         phone = phone.text
         phone = phone.replace(" ","").replace("(","").replace(")","")
+        print(f"{phone=}")
         if "بازگشت " in phone :
             conv.cancel()
             return
